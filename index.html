@@ -1,0 +1,601 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d12">
+  <meta name="description" content="WARZONE LAB: guias de desempenho, configurações competitivas e dicas para jogadores de Call of Duty.">
+  <title>WARZONE LAB — Jogue no seu melhor</title>
+
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --panel: #121620;
+      --panel2: #181e2a;
+      --text: #f4f6fb;
+      --muted: #9ba5b6;
+      --accent: #e63946;
+      --line: #252c39;
+      --green: #8cf0b1;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button, select { font: inherit; }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11, 13, 18, .94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-weight: 950;
+      letter-spacing: 1.5px;
+      font-size: 1.2rem;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .links a:hover { color: white; }
+
+    .menu-btn {
+      display: none;
+      background: var(--panel2);
+      color: white;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 94px 0 76px;
+      background:
+        radial-gradient(ellipse at 85% 20%, #5b182b55, transparent 40%),
+        radial-gradient(ellipse at 10% 70%, #243c5b35, transparent 45%);
+    }
+
+    .eyebrow {
+      color: #ff7a86;
+      text-transform: uppercase;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 7vw, 5.5rem);
+      line-height: 1.02;
+      letter-spacing: -3px;
+      margin: 20px 0;
+      max-width: 850px;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 620px;
+      font-size: 1.08rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .primary { background: var(--accent); color: white; }
+    .secondary { border-color: #3a4252; background: #171b24; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 52px;
+    }
+
+    .stat, .card, .tool, .guide {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 14px;
+    }
+
+    .stat { padding: 18px; }
+    .stat strong { display: block; font-size: 1.1rem; }
+    .stat span { color: var(--muted); font-size: .88rem; }
+
+    section { padding: 68px 0; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      line-height: 1.15;
+      margin: 8px 0;
+      letter-spacing: -1px;
+    }
+
+    .section-head p, .muted { color: var(--muted); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      padding: 23px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .card:hover {
+      border-color: #8d3544;
+      transform: translateY(-3px);
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #29202a;
+      font-size: 1.35rem;
+      margin-bottom: 18px;
+    }
+
+    .card h3, .guide h3 { margin: 0 0 8px; }
+    .card p, .guide p { color: var(--muted); font-size: .94rem; }
+    .tag { color: #ff8994; font-size: .78rem; font-weight: 800; }
+
+    .tool-wrap {
+      background: linear-gradient(140deg, #171b26, #10131b);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: clamp(20px, 4vw, 36px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .field { margin: 18px 0; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: .92rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px;
+      background: #0c1018;
+      color: white;
+      border: 1px solid #343d4d;
+      border-radius: 8px;
+    }
+
+    .result {
+      border: 1px solid #343d4d;
+      background: #0b1018;
+      border-radius: 12px;
+      padding: 22px;
+      min-height: 230px;
+    }
+
+    .result h3 { margin-top: 0; }
+    .result li { margin: 9px 0; color: #d3d9e4; }
+    .result li::marker { color: var(--accent); }
+
+    .notice {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    .guides { display: grid; gap: 14px; }
+
+    .guide {
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .guide p { margin-bottom: 0; }
+    .guide .btn { flex-shrink: 0; }
+
+    .about {
+      background: #10141d;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .about-inner {
+      max-width: 760px;
+      margin: auto;
+      text-align: center;
+    }
+
+    footer { padding: 28px 0; color: var(--muted); font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 760px) {
+      .menu-btn { display: block; }
+
+      .links {
+        display: none;
+        position: absolute;
+        top: 74px;
+        left: 0;
+        right: 0;
+        padding: 20px 4%;
+        background: #10141d;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+      }
+
+      .links.open { display: flex; }
+      .hero { padding-top: 64px; }
+      h1 { letter-spacing: -1.5px; }
+      .stats, .grid, .tool-wrap { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+      .guide { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container nav" aria-label="Navegação principal">
+      <a class="logo" href="#inicio">WARZONE <span>LAB.</span></a>
+
+      <button class="menu-btn" id="menuBtn"
+        aria-expanded="false" aria-controls="navLinks">
+        Menu ☰
+      </button>
+
+      <div class="links" id="navLinks">
+        <a href="#recursos">Recursos</a>
+        <a href="#ferramenta">Ferramenta</a>
+        <a href="#guias">Guias</a>
+        <a href="#sobre">Sobre o projeto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container">
+        <span class="eyebrow">Performance • Competitivo • Tecnologia</span>
+
+        <h1>JOGUE NO SEU <span>MELHOR.</span></h1>
+
+        <p>
+          Guias práticos, ajustes inteligentes e ferramentas para você
+          entender seu setup e buscar uma experiência melhor no Call of Duty.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="#ferramenta">Testar ferramenta ↗</a>
+          <a class="btn secondary" href="#guias">Explorar guias</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>PC & FPS</strong>
+            <span>Desempenho e estabilidade</span>
+          </div>
+          <div class="stat">
+            <strong>INPUT</strong>
+            <span>Controle e latência</span>
+          </div>
+          <div class="stat">
+            <strong>SETUP</strong>
+            <span>Configuração consciente</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Seu próximo nível</span>
+            <h2>Conhecimento que ajuda.</h2>
+          </div>
+          <p>Menos achismo. Mais testes e informação.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="icon">⚡</div>
+            <span class="tag">DESEMPENHO</span>
+            <h3>FPS e estabilidade</h3>
+            <p>Entenda gráficos, uso de CPU e GPU e como avaliar travamentos.</p>
+            <a class="tag" href="#guias">Ver guias →</a>
+          </article>
+
+          <article class="card">
+            <div class="icon">🎯</div>
+            <span class="tag">COMPETITIVO</span>
+            <h3>Controle e latência</h3>
+            <p>Aprenda sobre deadzone, taxa de atualização e resposta dos comandos.</p>
+            <a class="tag" href="#guias">Ver guias →</a>
+          </article>
+
+          <article class="card">
+            <div class="icon">🛠️</div>
+            <span class="tag">CONFIGURAÇÃO</span>
+            <h3>PC bem ajustado</h3>
+            <p>Boas práticas para drivers, Windows, temperaturas e estabilidade.</p>
+            <a class="tag" href="#ferramenta">Testar perfil →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ferramenta">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Ferramenta gratuita</span>
+            <h2>Seu perfil de desempenho.</h2>
+          </div>
+        </div>
+
+        <div class="tool-wrap">
+          <div>
+            <h3>Personalize seu objetivo</h3>
+            <p class="muted">
+              Escolha suas preferências para receber uma orientação inicial.
+              Não é um benchmark nem uma análise automática do computador.
+            </p>
+
+            <div class="field">
+              <label for="resolution">Resolução do monitor</label>
+              <select id="resolution">
+                <option value="1080">1920 × 1080 (Full HD)</option>
+                <option value="1440">2560 × 1440 (QHD)</option>
+                <option value="2160">3840 × 2160 (4K)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="goal">Prioridade no jogo</label>
+              <select id="goal">
+                <option value="fps">FPS e resposta competitiva</option>
+                <option value="balanced">Equilíbrio entre imagem e FPS</option>
+                <option value="quality">Qualidade visual</option>
+              </select>
+            </div>
+
+            <button class="btn primary" id="calculate" type="button">
+              Gerar orientação
+            </button>
+          </div>
+
+          <div class="result" id="result" aria-live="polite">
+            <h3>Sua orientação aparecerá aqui</h3>
+            <p class="muted">Selecione suas preferências e clique no botão.</p>
+          </div>
+        </div>
+
+        <p class="notice">
+          As sugestões são genéricas. Verifique as opções disponíveis na
+          versão atual do jogo e teste as alterações uma de cada vez.
+        </p>
+      </div>
+    </section>
+
+    <section id="guias">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Aprenda e evolua</span>
+            <h2>Guias para começar.</h2>
+          </div>
+        </div>
+
+        <div class="guides">
+          <article class="guide">
+            <div>
+              <span class="tag">GUIA 01</span>
+              <h3>Como avaliar o desempenho do PC</h3>
+              <p>FPS médio, quedas, temperaturas e uso dos componentes.</p>
+            </div>
+            <a class="btn secondary" href="#sobre">Em breve</a>
+          </article>
+
+          <article class="guide">
+            <div>
+              <span class="tag">GUIA 02</span>
+              <h3>Configurações gráficas competitivas</h3>
+              <p>Como equilibrar visibilidade, qualidade e fluidez.</p>
+            </div>
+            <a class="btn secondary" href="#sobre">Em breve</a>
+          </article>
+
+          <article class="guide">
+            <div>
+              <span class="tag">GUIA 03</span>
+              <h3>Como reduzir travamentos com segurança</h3>
+              <p>Diagnóstico antes de aplicar alterações no Windows.</p>
+            </div>
+            <a class="btn secondary" href="#sobre">Em breve</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="sobre">
+      <div class="container about-inner">
+        <span class="eyebrow">Nossa missão</span>
+        <h2>Feito para quem leva o jogo a sério.</h2>
+        <p class="muted">
+          O WARZONE LAB é um projeto independente de conteúdo e ferramentas
+          para a comunidade gamer. Não é afiliado, patrocinado ou endossado
+          pela Activision ou pelos responsáveis por Call of Duty.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> WARZONE LAB. Projeto independente.</span>
+      <span>Desempenho começa com informação.</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.querySelector("#menuBtn");
+    const navLinks = document.querySelector("#navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.querySelector("#year").textContent =
+      new Date().getFullYear();
+
+    const calculateBtn = document.querySelector("#calculate");
+    const result = document.querySelector("#result");
+
+    calculateBtn.addEventListener("click", () => {
+      const resolution = document.querySelector("#resolution").value;
+      const goal = document.querySelector("#goal").value;
+
+      let title = "";
+      let tips = [];
+
+      if (goal === "fps") {
+        title = "Perfil: competitivo";
+        tips = [
+          "Comece com efeitos e sombras em níveis baixos.",
+          "Compare o uso de CPU e GPU durante uma partida.",
+          "Mantenha a resolução nativa e teste ajustes um por vez."
+        ];
+      } else if (goal === "balanced") {
+        title = "Perfil: equilibrado";
+        tips = [
+          "Comece com qualidade baixa ou média nos efeitos mais pesados.",
+          "Priorize texturas compatíveis com a memória da sua GPU.",
+          "Compare a nitidez e a estabilidade após cada alteração."
+        ];
+      } else {
+        title = "Perfil: qualidade visual";
+        tips = [
+          "Aumente a qualidade gradualmente e observe o impacto no FPS.",
+          "Evite configurações que provoquem quedas ou travamentos.",
+          "Confira se a memória de vídeo é suficiente para suas opções."
+        ];
+      }
+
+      if (resolution === "1440") {
+        tips.push("Em QHD, a GPU pode trabalhar mais; monitore seu uso.");
+      } else if (resolution === "2160") {
+        tips.push("Em 4K, teste cada ajuste com atenção ao limite da GPU.");
+      } else {
+        tips.push("Em Full HD, confira também se a CPU limita o desempenho.");
+      }
+
+      result.replaceChildren();
+
+      const heading = document.createElement("h3");
+      heading.textContent = title;
+      result.appendChild(heading);
+
+      const list = document.createElement("ul");
+
+      tips.forEach(tip => {
+        const item = document.createElement("li");
+        item.textContent = tip;
+        list.appendChild(item);
+      });
+
+      result.appendChild(list);
+
+      const note = document.createElement("p");
+      note.className = "notice";
+      note.textContent =
+        "Orientação inicial, não uma garantia de FPS. Teste em condições semelhantes antes e depois.";
+      result.appendChild(note);
+    });
+  </script>
+</body>
+</html>
